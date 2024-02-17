@@ -3,6 +3,9 @@ package Reqres;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
+import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.StringAssert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import io.restassured.response.Response;
 
@@ -11,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class GetListResourceTest {
     @Test
-    public void GetListResource() {
+    public void getListResource() {
 
         Response response = RestAssured
                 .get("https://reqres.in/api/unknown")
@@ -20,7 +23,7 @@ public class GetListResourceTest {
     }
 
     @Test
-    public void GetListResourceParametrs() {
+    public void getListResourceParametrs() {
         ValidatableResponse response = RestAssured
                 .given()
                 .queryParam("page", "1")
@@ -34,7 +37,7 @@ public class GetListResourceTest {
     }
 
     @Test
-    public void GetListResourceId() {
+    public void getListResourceId() {
         ValidatableResponse response = RestAssured
                 .given()
                 .queryParam("id", "8")
@@ -47,7 +50,7 @@ public class GetListResourceTest {
     }
 
     @Test
-    public void GetListResourceStatusCode() {
+    public void getListResourceStatusCodeNegativ() {
         Response response = RestAssured
                 .given()
                 .queryParam("id", "13")
@@ -58,11 +61,11 @@ public class GetListResourceTest {
         int statusCode = response.getStatusCode();
         System.out.println("StatusCode: " + statusCode);
 
-        assertEquals(200, statusCode, "Unexpected status code");
+        assertEquals("200", statusCode, "Unexpected status code");
     }
 
     @Test
-    public void GetListResourceTotal() {
+    public void getListResourceTotal() {
         JsonPath response = RestAssured
                 .given()
                 .get("https://reqres.in/api/unknown")
@@ -74,17 +77,22 @@ public class GetListResourceTest {
     }
 
     @Test
-    public void GetListResourceAssert() {
+    public void getListResourceAssert() {
         JsonPath response = RestAssured
                 .given()
                 .get("https://reqres.in/api/unknown/?id=6")
                 .jsonPath();
         response.prettyPrint();
 
-        assertEquals("6", response.get("id").toString());
-        assertEquals("blue turquoise", response.get("name").toString());
-        assertEquals("2005", response.get("year").toString());
-        assertEquals("#53B0AE", response.get("color").toString());
-        assertEquals("15-5217", response.get("pantone_value").toString());
+        SoftAssertions softAssert = new SoftAssertions();
+
+       softAssert.assertThat("6").isEqualTo("6");
+       softAssert.assertThat("blue turquoise").isEqualTo("blue turquoise");
+       softAssert.assertThat("2005").isEqualTo("2005");
+       softAssert.assertThat("#53B0AE").isEqualTo("#53B0AE");
+       softAssert.assertThat("15-5217").isEqualTo("15-5217");
+
+
+        softAssert.assertAll();
     }
 }

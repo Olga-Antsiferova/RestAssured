@@ -86,12 +86,11 @@ public class GetListResourceTest {
 
         SoftAssertions softAssert = new SoftAssertions();
 
-       softAssert.assertThat("6").isEqualTo("6");
-       softAssert.assertThat("blue turquoise").isEqualTo("blue turquoise");
-       softAssert.assertThat("2005").isEqualTo("2005");
-       softAssert.assertThat("#53B0AE").isEqualTo("#53B0AE");
-       softAssert.assertThat("15-5217").isEqualTo("15-5217");
-
+        softAssert.assertThat("6").isEqualTo("6");
+        softAssert.assertThat("blue turquoise").isEqualTo("blue turquoise");
+        softAssert.assertThat("2005").isEqualTo("2005");
+        softAssert.assertThat("#53B0AE").isEqualTo("#53B0AE");
+        softAssert.assertThat("15-5217").isEqualTo("15-5217");
 
         softAssert.assertAll();
     }

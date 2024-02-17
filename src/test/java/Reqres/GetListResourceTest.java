@@ -49,6 +49,7 @@ public class GetListResourceTest {
         System.out.println("Responce: \n" + response.extract().asPrettyString());
     }
 
+
     @Test
     public void getListResourceStatusCodeNegativ() {
         Response response = RestAssured
